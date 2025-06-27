@@ -1,13 +1,24 @@
-import requests
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 import time
 
-url = "https://kissa47.blogspot.com/2025/06/%20.html"  # replace with your URL
-views = 1000
+url = "https://kissa47.blogspot.com/2025/06/%20.html"
 
-for i in range(views):
+options = Options()
+options.add_argument("--headless")  # Run in background
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+
+# Initialize browser
+driver = webdriver.Chrome(options=options)
+
+# Simulate views
+for i in range(10):  # You can change 10 to 1000
     try:
-        res = requests.get(url)
-        print(f"[{i+1}] Status: {res.status_code}")
-        time.sleep(5)
+        driver.get(url)
+        print(f"View {i+1} loaded")
+        time.sleep(10)  # Simulate reading time
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error at view {i+1}: {e}")
+
+driver.quit()
